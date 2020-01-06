@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    ceph.md |  Gina
+    ceph |  Gina
   </title>
   
   <link rel="shortcut icon" href="/favicon.ico" />
@@ -32,7 +32,7 @@
   <div id="app">
     <main class="content">
       <section class="outer">
-  <article id="post-ceph-md" class="article article-type-post" itemscope
+  <article id="post-ceph" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -40,7 +40,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  ceph.md
+  ceph
 </h1>
   
 
@@ -49,8 +49,8 @@
 
     
     <div class="article-meta">
-      <a href="/2020/01/06/ceph-md/" class="article-date">
-  <time datetime="2020-01-06T01:55:11.000Z" itemprop="datePublished">2020-01-06</time>
+      <a href="/2020/01/06/ceph/" class="article-date">
+  <time datetime="2020-01-06T08:18:05.853Z" itemprop="datePublished">2020-01-06</time>
 </a>
       
     </div>
@@ -73,7 +73,7 @@
       
       <p><strong>Ceph部署文档</strong></p>
 <p>编辑hosts文件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/hosts</span><br><span class="line">10.30.0.41 ceph-node1 ceph-mon1</span><br><span class="line">10.30.0.42 ceph-node2 ceph-mon2</span><br><span class="line">10.30.0.44 ceph-node3 ceph-mon3</span><br><span class="line">10.30.0.45 ceph-node4 ceph-mgr1</span><br><span class="line">10.30.0.46 ceph-node5 ceph-mgr2 ceph-rgw</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/hosts</span><br><span class="line">192.168.0.41 ceph-node1 ceph-mon1</span><br><span class="line">192.168.0.42 ceph-node2 ceph-mon2</span><br><span class="line">192.168.0.44 ceph-node3 ceph-mon3</span><br><span class="line">192.168.0.45 ceph-node4 ceph-mgr1</span><br><span class="line">192.168.0.46 ceph-node5 ceph-mgr2 ceph-rgw</span><br></pre></td></tr></table></figure>
 <p>设置hostname</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hostnamectl <span class="built_in">set</span>-hostname ceph-node1</span><br><span class="line">hostnamectl <span class="built_in">set</span>-hostname ceph-node2</span><br><span class="line">hostnamectl <span class="built_in">set</span>-hostname ceph-node3</span><br></pre></td></tr></table></figure>
 <p>生成ssh-key</p>
@@ -81,7 +81,7 @@
 <p>在ceph-deploy节点执行</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##创建集群</span></span><br><span class="line"><span class="comment">#创建monitor节点（依据需要的mon数量来对节点执行，必须是奇数，最少是一个）</span></span><br><span class="line"><span class="comment">#例如:ceph-deploy new &#123;initial-monitor-node(s)&#125;</span></span><br><span class="line">mkdir my-cluster</span><br><span class="line"><span class="built_in">cd</span> my-cluster</span><br><span class="line"> ceph-deploy new ceph-node1 ceph-node2 ceph-node3</span><br></pre></td></tr></table></figure>
 <p>安装后生成三个文件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">编辑ceph.conf   注（public network是和mon一样的公共网络）</span><br><span class="line">[global]</span><br><span class="line">fsid = 74c047d3-2d2f-4fd9-9db1-30394d4e6f3a</span><br><span class="line">mon_initial_members = ceph-node1, ceph-node2, ceph-node3</span><br><span class="line">mon_host = 10.30.0.41,10.30.0.42,10.30.0.44</span><br><span class="line">auth_cluster_required = cephx</span><br><span class="line">auth_service_required = cephx</span><br><span class="line">auth_client_required = cephx</span><br><span class="line"></span><br><span class="line">添加网络</span><br><span class="line">public network = 10.30.0.0/24</span><br><span class="line">cluster network = 10.31.0.0/24</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">编辑ceph.conf   注（public network是和mon一样的公共网络）</span><br><span class="line">[global]</span><br><span class="line">fsid = 74c047d3-2d2f-4fd9-9db1-30394d4e6f3a</span><br><span class="line">mon_initial_members = ceph-node1, ceph-node2, ceph-node3</span><br><span class="line">mon_host = 192.168.0.41,192.168.0.42,192.168.0.44</span><br><span class="line">auth_cluster_required = cephx</span><br><span class="line">auth_service_required = cephx</span><br><span class="line">auth_client_required = cephx</span><br><span class="line"></span><br><span class="line">添加网络</span><br><span class="line">public network = 10.30.0.0/24</span><br><span class="line">cluster network = 10.31.0.0/24</span><br></pre></td></tr></table></figure>
 <p>这里用下面命令替换了官方的命令（ceph-deploy install ceph-node1 ceph-node2 ceph-node3）,由于用官方命令会把阿里云的源顶掉所以需要用下面的命令</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y ceph ceph-radosgw        <span class="comment">#在每个节点执行  ，rgw看需求安装</span></span><br></pre></td></tr></table></figure>
 <p>初始化monitor(s)，并收集所有秘钥</p>
@@ -112,7 +112,7 @@
         
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/01/06/ceph-md/" data-id="ck5260nec0000r36b59bm5ajl"
+      <a data-url="http://yoursite.com/2020/01/06/ceph/" data-id="ck526sc430000mq6ba056as2x"
         class="article-share-link">分享</a>
       
     </footer>
@@ -123,11 +123,11 @@
   
   <nav class="article-nav">
     
-      <a href="/2020/01/06/cicd-jenkins/" class="article-nav-link">
+      <a href="/2020/01/06/%E7%BA%A2%E5%B8%BDpupbline%E8%84%9A%E6%9C%AC/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            cicd-jenkins
+            红帽pupbline脚本
           
         </div>
       </a>
@@ -228,8 +228,6 @@
       <li>
         <!-- cnzz统计 -->
         
-        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
-        
       </li>
     </ul>
   </div>
@@ -269,7 +267,7 @@
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="http://shenyu-vip.lofter.com" target="_blank" rel="noopener">摄影</a>
+      <a class="nav-item-link" href="/null">摄影</a>
     </li>
     
     <li class="nav-item">

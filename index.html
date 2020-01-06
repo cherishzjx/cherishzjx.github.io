@@ -34,11 +34,6 @@
       
 <section class="cover">
     
-      
-      <a class="forkMe" href="https://github.com/Shen-Yu/hexo-theme-ayer"
-        target="_blank"><img width="149" height="149" src="/images/forkme.png"
-          class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
-    
   <div class="cover-frame">
     <div class="bg-box">
       <img src="/images/cover1.jpg" alt="image frame" />
@@ -64,7 +59,7 @@
 
     
     
-    <article id="post-cicd-jenkins" class="article article-type-post" itemscope
+    <article id="post-红帽pupbline脚本" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -72,8 +67,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/2020/01/06/cicd-jenkins/"
-    >cicd-jenkins</a
+  <a class="article-title" href="/2020/01/06/%E7%BA%A2%E5%B8%BDpupbline%E8%84%9A%E6%9C%AC/"
+    >红帽pupbline脚本</a
   >
 </h2>
   
@@ -83,8 +78,8 @@
 
     
     <div class="article-meta">
-      <a href="/2020/01/06/cicd-jenkins/" class="article-date">
-  <time datetime="2020-01-06T07:33:07.000Z" itemprop="datePublished">2020-01-06</time>
+      <a href="/2020/01/06/%E7%BA%A2%E5%B8%BDpupbline%E8%84%9A%E6%9C%AC/" class="article-date">
+  <time datetime="2020-01-06T08:18:13.826Z" itemprop="datePublished">2020-01-06</time>
 </a>
       
     </div>
@@ -99,77 +94,16 @@
       
 
       
-      <a id="more"></a>
-<hr />
-<p><br />
-#!groovy<br />
-node(‘maven’) {<br />
-def mvnCmd = “mvn -s ./nexus_openshift_settings.xml”</p>
-<p>stage(‘Checkout Source’) {<br />
-git ‘<a href="http://gogs-cicd-demo-tools.apps.ocp-test.com/gogs/pt01.git" target="_blank" rel="noopener">http://gogs-cicd-demo-tools.apps.ocp-test.com/gogs/pt01.git</a>’<br />
-sh “ls -l”<br />
-}</p>
-<p>def groupId    = getGroupIdFromPom(“pom.xml”)<br />
-def artifactId = getArtifactIdFromPom(“pom.xml”)<br />
-def version    = getVersionFromPom(“pom.xml”)<br />
-stage(‘Build war’) {<br />
-sh “<span class='katex-error' title='ParseError: KaTeX parse error: Expected &#039;EOF&#039;, got &#039;}&#039; at position 39: …-DskipTests&quot;
-  }̲
-  stage(&#039;Unit …'>{mvnCmd} clean package -DskipTests&quot;
-  }
-  stage(&#039;Unit Tests&#039;) {
-    echo &quot;Unit Tests&quot;
-    sh &quot;</span>{mvnCmd} test”<br />
-}<br />
-stage(‘Code Analysis’) {<br />
-echo “Code Analysis”<br />
-sh “echo <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mrow><mi>J</mi><mi>O</mi><msub><mi>B</mi><mi>B</mi></msub><mi>A</mi><mi>S</mi><msub><mi>E</mi><mi>N</mi></msub><mi>A</mi><mi>M</mi><mi>E</mi></mrow><mi mathvariant="normal">&quot;</mi><mi>s</mi><mi>h</mi><mi mathvariant="normal">&quot;</mi></mrow><annotation encoding="application/x-tex">{JOB_BASE_NAME}&quot;
-    sh &quot;</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.84444em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.09618em;">J</span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05017em;">B</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.05017em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.05017em;">B</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathdefault">A</span><span class="mord mathdefault" style="margin-right:0.05764em;">S</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05764em;">E</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.05764em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.10903em;">N</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathdefault">A</span><span class="mord mathdefault" style="margin-right:0.10903em;">M</span><span class="mord mathdefault" style="margin-right:0.05764em;">E</span></span><span class="mord">&quot;</span><span class="mord mathdefault">s</span><span class="mord mathdefault">h</span><span class="mord">&quot;</span></span></span></span>{mvnCmd} sonar:sonar -Dsonar.host.url=http://sonarqube.cicd-demo-tools.svc:9000/ -Dsonar.projectName=${JOB_BASE_NAME}”<br />
-}</p>
-<p>stage(‘Publish to Nexus’) {<br />
-echo “Publish to Nexus”<br />
-sh “${mvnCmd} deploy -DskipTests=true -DaltDeploymentRepository=nexus::default::<a href="http://nexus3-cicd-demo-tools.apps.ocp-test.com/repository/maven-releases/" target="_blank" rel="noopener">http://nexus3-cicd-demo-tools.apps.ocp-test.com/repository/maven-releases/</a>”<br />
-}</p>
-<p>stage(‘Build OpenShift Image’) {<br />
-sh “cp ./target/pipeline-test-1.0.war ./ROOT.war”<br />
-sh “oc start-build pt --follow --from-file=./ROOT.war -n pt01-dev”<br />
-}</p>
-<p>stage(‘Deploy to Dev’) {<br />
-sh “oc patch dc pt --patch ‘{“spec”: { “triggers”: [ { “type”: “ImageChange”, “imageChangeParams”: { “containerNames”: [ “pt” ], “from”: { “kind”: “ImageStreamTag”, “namespace”: “pt01-dev”, “name”: “pt:latest”}}}]}}’ -n pt01-dev”<br />
-openshiftDeploy depCfg: ‘pt’, namespace: ‘pt01-dev’, verbose: ‘false’, waitTime: ‘’, waitUnit: ‘sec’<br />
-openshiftVerifyDeployment depCfg: ‘pt’, namespace: ‘pt01-dev’, replicaCount: ‘1’, verbose: ‘false’, verifyReplicaCount: ‘false’, waitTime: ‘’, waitUnit: ‘sec’<br />
-openshiftVerifyService namespace: ‘pt01-dev’, svcName: ‘pt’, verbose: ‘false’<br />
-}</p>
-<p>stage(‘是否发布生产？’) {<br />
-input “是否发布生产?”<br />
-echo “OK!”<br />
-}</p>
-<p>stage(‘Deploy to Pro’) {<br />
-sh “oc patch dc pt --patch ‘{“spec”: { “triggers”: [ { “type”: “ImageChange”, “imageChangeParams”: { “containerNames”: [ “pt” ], “from”: { “kind”: “ImageStreamTag”, “namespace”: “pt01-dev”, “name”: “pt:latest”}}}]}}’ -n pt01-pro”<br />
-openshiftDeploy depCfg: ‘pt’, namespace: ‘pt01-pro’, verbose: ‘false’, waitTime: ‘’, waitUnit: ‘sec’<br />
-openshiftVerifyDeployment depCfg: ‘pt’, namespace: ‘pt01-pro’, replicaCount: ‘1’, verbose: ‘false’, verifyReplicaCount: ‘true’, waitTime: ‘’, waitUnit: ‘sec’<br />
-openshiftVerifyService namespace: ‘pt01-pro’, svcName: ‘pt’, verbose: ‘false’<br />
-}</p>
-<p>}</p>
-<p>def getVersionFromPom(pom) {<br />
-def matcher = readFile(pom) =~ ‘<version>(.+)</version>’<br />
-matcher ? matcher[0][1] : null<br />
-}<br />
-def getGroupIdFromPom(pom) {<br />
-def matcher = readFile(pom) =~ ‘<groupId>(.+)</groupId>’<br />
-matcher ? matcher[0][1] : null<br />
-}<br />
-def getArtifactIdFromPom(pom) {<br />
-def matcher = readFile(pom) =~ ‘<artifactId>(.+)</artifactId>’<br />
-matcher ? matcher[0][1] : null<br />
-}</p>
+      <p><strong>红帽pipeline脚本</strong><br />
+脚本如下格式</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">#!groovy</span><br><span class="line">node('maven') &#123;</span><br><span class="line">  def mvnCmd = "mvn -s ./nexus_openshift_settings.xml"</span><br><span class="line"></span><br><span class="line">  stage('Checkout Source') &#123;</span><br><span class="line">    git 'http://gogs-cicd-demo-tools.apps.ocp-test.com/gogs/pt01.git'</span><br><span class="line">    sh "ls -l"</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  def groupId    = getGroupIdFromPom("pom.xml")</span><br><span class="line">  def artifactId = getArtifactIdFromPom("pom.xml")</span><br><span class="line">  def version    = getVersionFromPom("pom.xml")</span><br><span class="line">  stage('Build war') &#123;</span><br><span class="line">    sh "$&#123;mvnCmd&#125; clean package -DskipTests"</span><br><span class="line">  &#125;</span><br><span class="line">  stage('Unit Tests') &#123;</span><br><span class="line">    echo "Unit Tests"</span><br><span class="line">    sh "$&#123;mvnCmd&#125; test"</span><br><span class="line">  &#125;</span><br><span class="line">  stage('Code Analysis') &#123;</span><br><span class="line">    echo "Code Analysis"</span><br><span class="line">    sh "echo $&#123;JOB_BASE_NAME&#125;"</span><br><span class="line">    sh "$&#123;mvnCmd&#125; sonar:sonar -Dsonar.host.url=http://sonarqube.cicd-demo-tools.svc:9000/ -Dsonar.projectName=$&#123;JOB_BASE_NAME&#125;"</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  stage('Publish to Nexus') &#123;</span><br><span class="line">    echo "Publish to Nexus"</span><br><span class="line">    sh "$&#123;mvnCmd&#125; deploy -DskipTests=true -DaltDeploymentRepository=nexus::default::http://nexus3-cicd-demo-tools.apps.ocp-test.com/repository/maven-releases/"</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  stage('Build OpenShift Image') &#123;</span><br><span class="line">    sh "cp ./target/pipeline-test-1.0.war ./ROOT.war"</span><br><span class="line">    sh "oc start-build pt --follow --from-file=./ROOT.war -n pt01-dev"</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  stage('Deploy to Dev') &#123;</span><br><span class="line">    sh "oc patch dc pt --patch '&#123;\"spec\": &#123; \"triggers\": [ &#123; \"type\": \"ImageChange\", \"imageChangeParams\": &#123; \"containerNames\": [ \"pt\" ], \"from\": &#123; \"kind\": \"ImageStreamTag\", \"namespace\": \"pt01-dev\", \"name\": \"pt:latest\"&#125;&#125;&#125;]&#125;&#125;' -n pt01-dev"</span><br><span class="line">    openshiftDeploy depCfg: 'pt', namespace: 'pt01-dev', verbose: 'false', waitTime: '', waitUnit: 'sec'</span><br><span class="line">    openshiftVerifyDeployment depCfg: 'pt', namespace: 'pt01-dev', replicaCount: '1', verbose: 'false', verifyReplicaCount: 'false', waitTime: '', waitUnit: 'sec'</span><br><span class="line">    openshiftVerifyService namespace: 'pt01-dev', svcName: 'pt', verbose: 'false'</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  stage('是否发布生产？') &#123;</span><br><span class="line">    input "是否发布生产?"</span><br><span class="line">    echo "OK!"</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  stage('Deploy to Pro') &#123;</span><br><span class="line">    sh "oc patch dc pt --patch '&#123;\"spec\": &#123; \"triggers\": [ &#123; \"type\": \"ImageChange\", \"imageChangeParams\": &#123; \"containerNames\": [ \"pt\" ], \"from\": &#123; \"kind\": \"ImageStreamTag\", \"namespace\": \"pt01-dev\", \"name\": \"pt:latest\"&#125;&#125;&#125;]&#125;&#125;' -n pt01-pro"</span><br><span class="line">    openshiftDeploy depCfg: 'pt', namespace: 'pt01-pro', verbose: 'false', waitTime: '', waitUnit: 'sec'</span><br><span class="line">    openshiftVerifyDeployment depCfg: 'pt', namespace: 'pt01-pro', replicaCount: '1', verbose: 'false', verifyReplicaCount: 'true', waitTime: '', waitUnit: 'sec'</span><br><span class="line">    openshiftVerifyService namespace: 'pt01-pro', svcName: 'pt', verbose: 'false'</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">def getVersionFromPom(pom) &#123;</span><br><span class="line">  def matcher = readFile(pom) =~ '&lt;version&gt;(.+)&lt;/version&gt;'</span><br><span class="line">  matcher ? matcher[0][1] : null</span><br><span class="line">&#125;</span><br><span class="line">def getGroupIdFromPom(pom) &#123;</span><br><span class="line">  def matcher = readFile(pom) =~ '&lt;groupId&gt;(.+)&lt;/groupId&gt;'</span><br><span class="line">  matcher ? matcher[0][1] : null</span><br><span class="line">&#125;</span><br><span class="line">def getArtifactIdFromPom(pom) &#123;</span><br><span class="line">  def matcher = readFile(pom) =~ '&lt;artifactId&gt;(.+)&lt;/artifactId&gt;'</span><br><span class="line">  matcher ? matcher[0][1] : null</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
       <!-- 打赏 -->
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/01/06/cicd-jenkins/" data-id="ck5260nf00001r36b7jj85kxh"
+      <a data-url="http://yoursite.com/2020/01/06/%E7%BA%A2%E5%B8%BDpupbline%E8%84%9A%E6%9C%AC/" data-id="ck526sc4b0001mq6b4kk050rh"
         class="article-share-link">分享</a>
       
     </footer>
@@ -186,7 +120,7 @@ matcher ? matcher[0][1] : null<br />
 
 </article>
     
-    <article id="post-ceph-md" class="article article-type-post" itemscope
+    <article id="post-ceph" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -194,8 +128,8 @@ matcher ? matcher[0][1] : null<br />
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/2020/01/06/ceph-md/"
-    >ceph.md</a
+  <a class="article-title" href="/2020/01/06/ceph/"
+    >ceph</a
   >
 </h2>
   
@@ -205,8 +139,8 @@ matcher ? matcher[0][1] : null<br />
 
     
     <div class="article-meta">
-      <a href="/2020/01/06/ceph-md/" class="article-date">
-  <time datetime="2020-01-06T01:55:11.000Z" itemprop="datePublished">2020-01-06</time>
+      <a href="/2020/01/06/ceph/" class="article-date">
+  <time datetime="2020-01-06T08:18:05.853Z" itemprop="datePublished">2020-01-06</time>
 </a>
       
     </div>
@@ -223,7 +157,7 @@ matcher ? matcher[0][1] : null<br />
       
       <p><strong>Ceph部署文档</strong></p>
 <p>编辑hosts文件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/hosts</span><br><span class="line">10.30.0.41 ceph-node1 ceph-mon1</span><br><span class="line">10.30.0.42 ceph-node2 ceph-mon2</span><br><span class="line">10.30.0.44 ceph-node3 ceph-mon3</span><br><span class="line">10.30.0.45 ceph-node4 ceph-mgr1</span><br><span class="line">10.30.0.46 ceph-node5 ceph-mgr2 ceph-rgw</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/hosts</span><br><span class="line">192.168.0.41 ceph-node1 ceph-mon1</span><br><span class="line">192.168.0.42 ceph-node2 ceph-mon2</span><br><span class="line">192.168.0.44 ceph-node3 ceph-mon3</span><br><span class="line">192.168.0.45 ceph-node4 ceph-mgr1</span><br><span class="line">192.168.0.46 ceph-node5 ceph-mgr2 ceph-rgw</span><br></pre></td></tr></table></figure>
 <p>设置hostname</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hostnamectl <span class="built_in">set</span>-hostname ceph-node1</span><br><span class="line">hostnamectl <span class="built_in">set</span>-hostname ceph-node2</span><br><span class="line">hostnamectl <span class="built_in">set</span>-hostname ceph-node3</span><br></pre></td></tr></table></figure>
 <p>生成ssh-key</p>
@@ -231,7 +165,7 @@ matcher ? matcher[0][1] : null<br />
 <p>在ceph-deploy节点执行</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##创建集群</span></span><br><span class="line"><span class="comment">#创建monitor节点（依据需要的mon数量来对节点执行，必须是奇数，最少是一个）</span></span><br><span class="line"><span class="comment">#例如:ceph-deploy new &#123;initial-monitor-node(s)&#125;</span></span><br><span class="line">mkdir my-cluster</span><br><span class="line"><span class="built_in">cd</span> my-cluster</span><br><span class="line"> ceph-deploy new ceph-node1 ceph-node2 ceph-node3</span><br></pre></td></tr></table></figure>
 <p>安装后生成三个文件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">编辑ceph.conf   注（public network是和mon一样的公共网络）</span><br><span class="line">[global]</span><br><span class="line">fsid = 74c047d3-2d2f-4fd9-9db1-30394d4e6f3a</span><br><span class="line">mon_initial_members = ceph-node1, ceph-node2, ceph-node3</span><br><span class="line">mon_host = 10.30.0.41,10.30.0.42,10.30.0.44</span><br><span class="line">auth_cluster_required = cephx</span><br><span class="line">auth_service_required = cephx</span><br><span class="line">auth_client_required = cephx</span><br><span class="line"></span><br><span class="line">添加网络</span><br><span class="line">public network = 10.30.0.0/24</span><br><span class="line">cluster network = 10.31.0.0/24</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">编辑ceph.conf   注（public network是和mon一样的公共网络）</span><br><span class="line">[global]</span><br><span class="line">fsid = 74c047d3-2d2f-4fd9-9db1-30394d4e6f3a</span><br><span class="line">mon_initial_members = ceph-node1, ceph-node2, ceph-node3</span><br><span class="line">mon_host = 192.168.0.41,192.168.0.42,192.168.0.44</span><br><span class="line">auth_cluster_required = cephx</span><br><span class="line">auth_service_required = cephx</span><br><span class="line">auth_client_required = cephx</span><br><span class="line"></span><br><span class="line">添加网络</span><br><span class="line">public network = 10.30.0.0/24</span><br><span class="line">cluster network = 10.31.0.0/24</span><br></pre></td></tr></table></figure>
 <p>这里用下面命令替换了官方的命令（ceph-deploy install ceph-node1 ceph-node2 ceph-node3）,由于用官方命令会把阿里云的源顶掉所以需要用下面的命令</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y ceph ceph-radosgw        <span class="comment">#在每个节点执行  ，rgw看需求安装</span></span><br></pre></td></tr></table></figure>
 <p>初始化monitor(s)，并收集所有秘钥</p>
@@ -258,7 +192,7 @@ matcher ? matcher[0][1] : null<br />
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/01/06/ceph-md/" data-id="ck5260nec0000r36b59bm5ajl"
+      <a data-url="http://yoursite.com/2020/01/06/ceph/" data-id="ck526sc430000mq6ba056as2x"
         class="article-share-link">分享</a>
       
     </footer>
@@ -312,8 +246,6 @@ matcher ? matcher[0][1] : null<br />
       <li>
         <!-- cnzz统计 -->
         
-        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
-        
       </li>
     </ul>
   </div>
@@ -353,7 +285,7 @@ matcher ? matcher[0][1] : null<br />
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="http://shenyu-vip.lofter.com" target="_blank" rel="noopener">摄影</a>
+      <a class="nav-item-link" href="/null">摄影</a>
     </li>
     
     <li class="nav-item">
