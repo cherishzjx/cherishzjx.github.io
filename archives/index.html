@@ -5,19 +5,19 @@
   
 
   
-  <title>归档 | Gina</title>
+  <title>归档 | Gina bolg</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="my blog">
+  <meta name="description" content="blog blog blog">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Gina">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
-<meta property="og:site_name" content="Gina">
-<meta property="og:description" content="my blog">
+<meta property="og:title" content="Gina bolg">
+<meta property="og:url" content="https://cherishzjx.github.io/archives/index.html">
+<meta property="og:site_name" content="Gina bolg">
+<meta property="og:description" content="blog blog blog">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="ginazhu">
 <meta name="twitter:card" content="summary">
   
-    <link rel="alternate" href="/atom.xml" title="Gina" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="Gina bolg" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
@@ -38,11 +38,11 @@
   <div id="header-outer" class="outer">
     <div id="header-title" class="inner">
       <h1 id="logo-wrap">
-        <a href="/" id="logo">Gina</a>
+        <a href="/" id="logo">Gina bolg</a>
       </h1>
       
         <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">bolg</a>
+          <a href="/" id="subtitle">Unknown data analyst</a>
         </h2>
       
     </div>
@@ -62,7 +62,7 @@
         <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://cherishzjx.github.io"></form>
       </div>
     </div>
   </div>
@@ -70,112 +70,137 @@
       <div class="outer">
         <section id="main">
   
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/01/06/ceph-md/" class="archive-article-date">
-  <time datetime="2020-01-06T01:55:11.000Z" itemprop="datePublished">1月 6</time>
+    <article id="post-ceph-md" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/01/06/ceph-md/" class="article-date">
+  <time datetime="2020-01-06T01:55:11.000Z" itemprop="datePublished">2020-01-06</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/06/ceph-md/">ceph.md</a>
+      <a class="article-title" href="/2020/01/06/ceph-md/">ceph.md</a>
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/01/03/ceshi11/" class="archive-article-date">
-  <time datetime="2020-01-03T09:37:11.000Z" itemprop="datePublished">1月 3</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
+        <p><strong>Ceph部署文档</strong></p>
+<p>编辑hosts文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/hosts</span><br><span class="line">10.30.0.41 ceph-node1 ceph-mon1</span><br><span class="line">10.30.0.42 ceph-node2 ceph-mon2</span><br><span class="line">10.30.0.44 ceph-node3 ceph-mon3</span><br><span class="line">10.30.0.45 ceph-node4 ceph-mgr1</span><br><span class="line">10.30.0.46 ceph-node5 ceph-mgr2 ceph-rgw</span><br></pre></td></tr></table></figure>
+
+<p>设置hostname</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hostnamectl <span class="built_in">set</span>-hostname ceph-node1</span><br><span class="line">hostnamectl <span class="built_in">set</span>-hostname ceph-node2</span><br><span class="line">hostnamectl <span class="built_in">set</span>-hostname ceph-node3</span><br></pre></td></tr></table></figure>
+
+<p>生成ssh-key</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#ssh-keygen</span></span><br><span class="line">对需要访问的机器进行认证</span><br><span class="line">ssh-copy-id root@ceph-node1</span><br><span class="line">ssh-copy-id root@ceph-node2    //拷贝到所有节点</span><br><span class="line">ssh-copy-id root@ceph-node3</span><br></pre></td></tr></table></figure>
+
+<p>在ceph-deploy节点执行 </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##创建集群</span></span><br><span class="line"><span class="comment">#创建monitor节点（依据需要的mon数量来对节点执行，必须是奇数，最少是一个）</span></span><br><span class="line"><span class="comment">#例如:ceph-deploy new &#123;initial-monitor-node(s)&#125;</span></span><br><span class="line">mkdir my-cluster</span><br><span class="line"><span class="built_in">cd</span> my-cluster</span><br><span class="line"> ceph-deploy new ceph-node1 ceph-node2 ceph-node3</span><br></pre></td></tr></table></figure>
+
+<p>安装后生成三个文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">编辑ceph.conf   注（public network是和mon一样的公共网络）</span><br><span class="line">[global]</span><br><span class="line">fsid = 74c047d3-2d2f-4fd9-9db1-30394d4e6f3a</span><br><span class="line">mon_initial_members = ceph-node1, ceph-node2, ceph-node3</span><br><span class="line">mon_host = 10.30.0.41,10.30.0.42,10.30.0.44</span><br><span class="line">auth_cluster_required = cephx</span><br><span class="line">auth_service_required = cephx</span><br><span class="line">auth_client_required = cephx</span><br><span class="line"></span><br><span class="line">添加网络</span><br><span class="line">public network = 10.30.0.0/24</span><br><span class="line">cluster network = 10.31.0.0/24</span><br></pre></td></tr></table></figure>
+
+<p>这里用下面命令替换了官方的命令（ceph-deploy install ceph-node1 ceph-node2 ceph-node3）,由于用官方命令会把阿里云的源顶掉所以需要用下面的命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y ceph ceph-radosgw        <span class="comment">#在每个节点执行  ，rgw看需求安装</span></span><br></pre></td></tr></table></figure>
+
+<p>初始化monitor(s)，并收集所有秘钥</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">只在node1上面安装的，需要在my-clust目录执行</span><br><span class="line">ceph-deploy mon create-initial</span><br><span class="line">复制配置信息到各个节点</span><br><span class="line">ceph-deploy admin ceph-node1 ceph-node2 ceph-node3</span><br></pre></td></tr></table></figure>
+
+<p>安装Mgr</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#ceph-deploy mgr create ceph-node4 ceph-node5</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#ceph mgr module enable dashboard</span></span><br><span class="line"></span><br><span class="line">查看dashboard端口7000</span><br><span class="line"></span><br><span class="line">netstat -tunlp|grep 7000</span><br></pre></td></tr></table></figure>
+
+<p>使用zap选项删除所有osd节点上的分区，磁盘较多。重复执行即可</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">ceph-deploy disk zap ceph-node1 /dev/sdb</span><br><span class="line"></span><br><span class="line">ceph-deploy disk zap ceph-node2 /dev/sdb</span><br><span class="line"></span><br><span class="line">ceph-deploy disk zap ceph-node3/dev/sdb</span><br><span class="line"></span><br><span class="line">ceph-deploy disk zap ceph-node4 /dev/sdb</span><br><span class="line"></span><br><span class="line">ceph-deploy disk zap ceph-node5 /dev/sdb</span><br></pre></td></tr></table></figure>
+
+<p>启动创建osd，如果磁盘比较多，安装规划磁盘名称，重复执行即可</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ceph-deploy osd create --data  /dev/sdb ceph-node1</span><br><span class="line">ceph-deploy osd create --data  /dev/sdb ceph-node2</span><br><span class="line">ceph-deploy osd create --data  /dev/sdb ceph-node3</span><br><span class="line">ceph-deploy osd create --data  /dev/sdb ceph-node4</span><br><span class="line">ceph-deploy osd create --data  /dev/sdb ceph-node5</span><br></pre></td></tr></table></figure>
+
+<p>查看集群状态</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[root@ceph-node1 my-cluster]<span class="comment"># ceph -s </span></span><br><span class="line">  cluster:</span><br><span class="line">    id:     74c047d3-2d2f-4fd9-9db1-30394d4e6f3a</span><br><span class="line">    health: HEALTH_OK</span><br><span class="line"></span><br><span class="line">  services:</span><br><span class="line">    mon: 3 daemons, quorum ceph-node1,ceph-node2,ceph-node3</span><br><span class="line">    mgr: ceph-node4(active), standbys: ceph-node5</span><br><span class="line">    osd: 18 osds: 18 up, 18 <span class="keyword">in</span></span><br><span class="line"></span><br><span class="line">  data:</span><br><span class="line">    pools:   1 pools, 512 pgs</span><br><span class="line">    objects: 0 objects, 0B</span><br><span class="line">    usage:   18.2GiB used, 28.5TiB / 28.6TiB avail</span><br><span class="line">    pgs:     512 active+clean</span><br></pre></td></tr></table></figure>
+
+<p>对象存储部署，这里部署到了node5节点</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">yum install -y ceph-radosgw         （在node5节点执行）</span><br><span class="line"></span><br><span class="line">部署rgw   需要切换到my-cluster目录执行  （在node1节点执行）</span><br><span class="line"></span><br><span class="line">ceph-deploy rgw create ceph-node5</span><br><span class="line"></span><br><span class="line">完成后会启动7480端口</span><br><span class="line"></span><br><span class="line">[root@ceph-node5 ~]<span class="comment"># netstat -tnlp |grep 7480</span></span><br><span class="line">tcp    0      0 0.0.0.0:7480        0.0.0.0:*               LISTEN      41303/radosgw</span><br></pre></td></tr></table></figure>
+
+<p>创建pool池命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">cat create_pool.sh </span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">PG_NUM=30</span><br><span class="line">PGP_NUM=30</span><br><span class="line">SIZE=3</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> `cat /home/my-cluster/pool`</span><br><span class="line">        <span class="keyword">do</span></span><br><span class="line">        ceph osd pool create <span class="variable">$i</span> <span class="variable">$PG_NUM</span></span><br><span class="line">        ceph osd pool <span class="built_in">set</span> <span class="variable">$i</span> size <span class="variable">$SIZE</span></span><br><span class="line">        <span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> `cat /home/my-cluster/pool`</span><br><span class="line">        <span class="keyword">do</span></span><br><span class="line">        ceph osd pool <span class="built_in">set</span> <span class="variable">$i</span> pgp_num <span class="variable">$PGP_NUM</span></span><br><span class="line">        <span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<p>删除pool池命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">删除pool池命令</span><br><span class="line">cat delete_pool.sh</span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">PG_NUM=30</span><br><span class="line">PGP_NUM=30</span><br><span class="line">SIZE=3</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> `cat /home/my-cluster/pool`</span><br><span class="line">        <span class="keyword">do</span></span><br><span class="line">        ceph osd pool delete <span class="variable">$i</span> <span class="variable">$i</span> --yes-i-really-really-mean-it</span><br><span class="line">        <span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<p>单个删除pool命令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ceph osd  pool delete rbd rbd --yes-i-really-really-mean-it</span><br><span class="line"></span><br><span class="line">查看刚才创建的秘钥是不是能访问ceph集群，在node5上查看</span><br><span class="line"></span><br><span class="line">cat  /var/lib/ceph/radosgw/ceph-rgw.ceph-node5/keyring </span><br><span class="line">[client.rgw.ceph-node5]</span><br><span class="line">	key = AQDFfFNd0Rj/MxAAd5MUngvmUHdW72eFNE7jGQ==</span><br></pre></td></tr></table></figure>
+
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://cherishzjx.github.io/2020/01/06/ceph-md/" data-id="ck51soqil0000396bf4kig0ok" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/01/03/hello-world/" class="article-date">
+  <time datetime="2020-01-03T07:18:57.529Z" itemprop="datePublished">2020-01-03</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/03/ceshi11/">ceshi11</a>
+      <a class="article-title" href="/2020/01/03/hello-world/">Hello World</a>
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/01/03/gina-md/" class="archive-article-date">
-  <time datetime="2020-01-03T09:16:38.000Z" itemprop="datePublished">1月 3</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/03/gina-md/">gina.md</a>
-    </h1>
-  
+        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/01/03/test-md/" class="archive-article-date">
-  <time datetime="2020-01-03T08:46:11.000Z" itemprop="datePublished">1月 3</time>
-</a>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/03/test-md/">test_md</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2020/01/03/hello-world/" class="archive-article-date">
-  <time datetime="2020-01-03T07:18:57.529Z" itemprop="datePublished">1月 3</time>
-</a>
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://cherishzjx.github.io/2020/01/03/hello-world/" data-id="ck4xumfkn00008y6b2a1j3og1" class="article-share-link">Share</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/03/hello-world/">Hello World</a>
-    </h1>
-  
-
-    </header>
+      
+    </footer>
   </div>
+  
 </article>
-  
-  
-    </div></section>
+
+
   
 
 
@@ -209,18 +234,6 @@
         
           <li>
             <a href="/2020/01/06/ceph-md/">ceph.md</a>
-          </li>
-        
-          <li>
-            <a href="/2020/01/03/ceshi11/">ceshi11</a>
-          </li>
-        
-          <li>
-            <a href="/2020/01/03/gina-md/">gina.md</a>
-          </li>
-        
-          <li>
-            <a href="/2020/01/03/test-md/">test_md</a>
           </li>
         
           <li>
