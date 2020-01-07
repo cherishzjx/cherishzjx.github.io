@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>about</title>
+    <title>about me</title>
     <url>/2020/01/07/about/</url>
     <content><![CDATA[<p><strong>关于我</strong></p>
 <p>打酱油数据分析师</p>
@@ -10,7 +10,7 @@
 ]]></content>
   </entry>
   <entry>
-    <title>about</title>
+    <title>ceph</title>
     <url>/2020/01/07/ceph/</url>
     <content><![CDATA[<p><strong>Ceph部署文档</strong></p>
 <p>编辑hosts文件</p>
@@ -49,7 +49,7 @@
       </tags>
   </entry>
   <entry>
-    <title>about</title>
+    <title>红帽pupbline脚本</title>
     <url>/2020/01/07/%E7%BA%A2%E5%B8%BDpupbline%E8%84%9A%E6%9C%AC/</url>
     <content><![CDATA[<p><strong>红帽pipeline脚本</strong><br />
 脚本如下格式</p>
