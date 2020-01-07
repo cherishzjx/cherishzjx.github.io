@@ -60,7 +60,7 @@
 
     
     
-    <article id="post-红帽pupbline脚本" class="article article-type-post" itemscope
+    <article id="post-about" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -68,8 +68,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/2020/01/06/%E7%BA%A2%E5%B8%BDpupbline%E8%84%9A%E6%9C%AC/"
-    >红帽pupbline脚本</a
+  <a class="article-title" href="/2020/01/07/about/"
+    >about</a
   >
 </h2>
   
@@ -79,8 +79,8 @@
 
     
     <div class="article-meta">
-      <a href="/2020/01/06/%E7%BA%A2%E5%B8%BDpupbline%E8%84%9A%E6%9C%AC/" class="article-date">
-  <time datetime="2020-01-06T08:18:13.826Z" itemprop="datePublished">2020-01-06</time>
+      <a href="/2020/01/07/about/" class="article-date">
+  <time datetime="2020-01-07T01:56:33.000Z" itemprop="datePublished">2020-01-07</time>
 </a>
       
     </div>
@@ -95,16 +95,17 @@
       
 
       
-      <p><strong>红帽pipeline脚本</strong><br />
-脚本如下格式</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">#!groovy</span><br><span class="line">node('maven') &#123;</span><br><span class="line">  def mvnCmd = "mvn -s ./nexus_openshift_settings.xml"</span><br><span class="line"></span><br><span class="line">  stage('Checkout Source') &#123;</span><br><span class="line">    git 'http://gogs-cicd-demo-tools.apps.ocp-test.com/gogs/pt01.git'</span><br><span class="line">    sh "ls -l"</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  def groupId    = getGroupIdFromPom("pom.xml")</span><br><span class="line">  def artifactId = getArtifactIdFromPom("pom.xml")</span><br><span class="line">  def version    = getVersionFromPom("pom.xml")</span><br><span class="line">  stage('Build war') &#123;</span><br><span class="line">    sh "$&#123;mvnCmd&#125; clean package -DskipTests"</span><br><span class="line">  &#125;</span><br><span class="line">  stage('Unit Tests') &#123;</span><br><span class="line">    echo "Unit Tests"</span><br><span class="line">    sh "$&#123;mvnCmd&#125; test"</span><br><span class="line">  &#125;</span><br><span class="line">  stage('Code Analysis') &#123;</span><br><span class="line">    echo "Code Analysis"</span><br><span class="line">    sh "echo $&#123;JOB_BASE_NAME&#125;"</span><br><span class="line">    sh "$&#123;mvnCmd&#125; sonar:sonar -Dsonar.host.url=http://sonarqube.cicd-demo-tools.svc:9000/ -Dsonar.projectName=$&#123;JOB_BASE_NAME&#125;"</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  stage('Publish to Nexus') &#123;</span><br><span class="line">    echo "Publish to Nexus"</span><br><span class="line">    sh "$&#123;mvnCmd&#125; deploy -DskipTests=true -DaltDeploymentRepository=nexus::default::http://nexus3-cicd-demo-tools.apps.ocp-test.com/repository/maven-releases/"</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  stage('Build OpenShift Image') &#123;</span><br><span class="line">    sh "cp ./target/pipeline-test-1.0.war ./ROOT.war"</span><br><span class="line">    sh "oc start-build pt --follow --from-file=./ROOT.war -n pt01-dev"</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  stage('Deploy to Dev') &#123;</span><br><span class="line">    sh "oc patch dc pt --patch '&#123;\"spec\": &#123; \"triggers\": [ &#123; \"type\": \"ImageChange\", \"imageChangeParams\": &#123; \"containerNames\": [ \"pt\" ], \"from\": &#123; \"kind\": \"ImageStreamTag\", \"namespace\": \"pt01-dev\", \"name\": \"pt:latest\"&#125;&#125;&#125;]&#125;&#125;' -n pt01-dev"</span><br><span class="line">    openshiftDeploy depCfg: 'pt', namespace: 'pt01-dev', verbose: 'false', waitTime: '', waitUnit: 'sec'</span><br><span class="line">    openshiftVerifyDeployment depCfg: 'pt', namespace: 'pt01-dev', replicaCount: '1', verbose: 'false', verifyReplicaCount: 'false', waitTime: '', waitUnit: 'sec'</span><br><span class="line">    openshiftVerifyService namespace: 'pt01-dev', svcName: 'pt', verbose: 'false'</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  stage('是否发布生产？') &#123;</span><br><span class="line">    input "是否发布生产?"</span><br><span class="line">    echo "OK!"</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  stage('Deploy to Pro') &#123;</span><br><span class="line">    sh "oc patch dc pt --patch '&#123;\"spec\": &#123; \"triggers\": [ &#123; \"type\": \"ImageChange\", \"imageChangeParams\": &#123; \"containerNames\": [ \"pt\" ], \"from\": &#123; \"kind\": \"ImageStreamTag\", \"namespace\": \"pt01-dev\", \"name\": \"pt:latest\"&#125;&#125;&#125;]&#125;&#125;' -n pt01-pro"</span><br><span class="line">    openshiftDeploy depCfg: 'pt', namespace: 'pt01-pro', verbose: 'false', waitTime: '', waitUnit: 'sec'</span><br><span class="line">    openshiftVerifyDeployment depCfg: 'pt', namespace: 'pt01-pro', replicaCount: '1', verbose: 'false', verifyReplicaCount: 'true', waitTime: '', waitUnit: 'sec'</span><br><span class="line">    openshiftVerifyService namespace: 'pt01-pro', svcName: 'pt', verbose: 'false'</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">def getVersionFromPom(pom) &#123;</span><br><span class="line">  def matcher = readFile(pom) =~ '&lt;version&gt;(.+)&lt;/version&gt;'</span><br><span class="line">  matcher ? matcher[0][1] : null</span><br><span class="line">&#125;</span><br><span class="line">def getGroupIdFromPom(pom) &#123;</span><br><span class="line">  def matcher = readFile(pom) =~ '&lt;groupId&gt;(.+)&lt;/groupId&gt;'</span><br><span class="line">  matcher ? matcher[0][1] : null</span><br><span class="line">&#125;</span><br><span class="line">def getArtifactIdFromPom(pom) &#123;</span><br><span class="line">  def matcher = readFile(pom) =~ '&lt;artifactId&gt;(.+)&lt;/artifactId&gt;'</span><br><span class="line">  matcher ? matcher[0][1] : null</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      <p><strong>关于我</strong></p>
+<p>打酱油数据分析师</p>
+<pre class="highlight"><code class="bash">phone：123456
+</code></pre>
 
       
       <!-- 打赏 -->
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/01/06/%E7%BA%A2%E5%B8%BDpupbline%E8%84%9A%E6%9C%AC/" data-id="ck537d5g40002v16b65rw1cky"
+      <a data-url="http://yoursite.com/2020/01/07/about/" data-id="ck538akcy0000xo6bdjxaa7fq"
         class="article-share-link">分享</a>
       
     </footer>
@@ -129,8 +130,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/2020/01/06/ceph/"
-    >ceph</a
+  <a class="article-title" href="/2020/01/07/ceph/"
+    >about</a
   >
 </h2>
   
@@ -140,8 +141,8 @@
 
     
     <div class="article-meta">
-      <a href="/2020/01/06/ceph/" class="article-date">
-  <time datetime="2020-01-06T08:18:05.853Z" itemprop="datePublished">2020-01-06</time>
+      <a href="/2020/01/07/ceph/" class="article-date">
+  <time datetime="2020-01-07T01:56:33.000Z" itemprop="datePublished">2020-01-07</time>
 </a>
       
     </div>
@@ -193,9 +194,74 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/01/06/ceph/" data-id="ck537d5fp0000v16bgb7wfun1"
+      <a data-url="http://yoursite.com/2020/01/07/ceph/" data-id="ck538akdr0002xo6b8lq0essl"
         class="article-share-link">分享</a>
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%8A%80%E6%9C%AF/" rel="tag">技术</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
+    <article id="post-红帽pupbline脚本" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/01/07/%E7%BA%A2%E5%B8%BDpupbline%E8%84%9A%E6%9C%AC/"
+    >about</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/01/07/%E7%BA%A2%E5%B8%BDpupbline%E8%84%9A%E6%9C%AC/" class="article-date">
+  <time datetime="2020-01-07T01:56:33.000Z" itemprop="datePublished">2020-01-07</time>
+</a>
+      
+    </div>
+    
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p><strong>红帽pipeline脚本</strong><br />
+脚本如下格式</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">#!groovy</span><br><span class="line">node('maven') &#123;</span><br><span class="line">  def mvnCmd = "mvn -s ./nexus_openshift_settings.xml"</span><br><span class="line"></span><br><span class="line">  stage('Checkout Source') &#123;</span><br><span class="line">    git 'http://gogs-cicd-demo-tools.apps.ocp-test.com/gogs/pt01.git'</span><br><span class="line">    sh "ls -l"</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  def groupId    = getGroupIdFromPom("pom.xml")</span><br><span class="line">  def artifactId = getArtifactIdFromPom("pom.xml")</span><br><span class="line">  def version    = getVersionFromPom("pom.xml")</span><br><span class="line">  stage('Build war') &#123;</span><br><span class="line">    sh "$&#123;mvnCmd&#125; clean package -DskipTests"</span><br><span class="line">  &#125;</span><br><span class="line">  stage('Unit Tests') &#123;</span><br><span class="line">    echo "Unit Tests"</span><br><span class="line">    sh "$&#123;mvnCmd&#125; test"</span><br><span class="line">  &#125;</span><br><span class="line">  stage('Code Analysis') &#123;</span><br><span class="line">    echo "Code Analysis"</span><br><span class="line">    sh "echo $&#123;JOB_BASE_NAME&#125;"</span><br><span class="line">    sh "$&#123;mvnCmd&#125; sonar:sonar -Dsonar.host.url=http://sonarqube.cicd-demo-tools.svc:9000/ -Dsonar.projectName=$&#123;JOB_BASE_NAME&#125;"</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  stage('Publish to Nexus') &#123;</span><br><span class="line">    echo "Publish to Nexus"</span><br><span class="line">    sh "$&#123;mvnCmd&#125; deploy -DskipTests=true -DaltDeploymentRepository=nexus::default::http://nexus3-cicd-demo-tools.apps.ocp-test.com/repository/maven-releases/"</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  stage('Build OpenShift Image') &#123;</span><br><span class="line">    sh "cp ./target/pipeline-test-1.0.war ./ROOT.war"</span><br><span class="line">    sh "oc start-build pt --follow --from-file=./ROOT.war -n pt01-dev"</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  stage('Deploy to Dev') &#123;</span><br><span class="line">    sh "oc patch dc pt --patch '&#123;\"spec\": &#123; \"triggers\": [ &#123; \"type\": \"ImageChange\", \"imageChangeParams\": &#123; \"containerNames\": [ \"pt\" ], \"from\": &#123; \"kind\": \"ImageStreamTag\", \"namespace\": \"pt01-dev\", \"name\": \"pt:latest\"&#125;&#125;&#125;]&#125;&#125;' -n pt01-dev"</span><br><span class="line">    openshiftDeploy depCfg: 'pt', namespace: 'pt01-dev', verbose: 'false', waitTime: '', waitUnit: 'sec'</span><br><span class="line">    openshiftVerifyDeployment depCfg: 'pt', namespace: 'pt01-dev', replicaCount: '1', verbose: 'false', verifyReplicaCount: 'false', waitTime: '', waitUnit: 'sec'</span><br><span class="line">    openshiftVerifyService namespace: 'pt01-dev', svcName: 'pt', verbose: 'false'</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  stage('是否发布生产？') &#123;</span><br><span class="line">    input "是否发布生产?"</span><br><span class="line">    echo "OK!"</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  stage('Deploy to Pro') &#123;</span><br><span class="line">    sh "oc patch dc pt --patch '&#123;\"spec\": &#123; \"triggers\": [ &#123; \"type\": \"ImageChange\", \"imageChangeParams\": &#123; \"containerNames\": [ \"pt\" ], \"from\": &#123; \"kind\": \"ImageStreamTag\", \"namespace\": \"pt01-dev\", \"name\": \"pt:latest\"&#125;&#125;&#125;]&#125;&#125;' -n pt01-pro"</span><br><span class="line">    openshiftDeploy depCfg: 'pt', namespace: 'pt01-pro', verbose: 'false', waitTime: '', waitUnit: 'sec'</span><br><span class="line">    openshiftVerifyDeployment depCfg: 'pt', namespace: 'pt01-pro', replicaCount: '1', verbose: 'false', verifyReplicaCount: 'true', waitTime: '', waitUnit: 'sec'</span><br><span class="line">    openshiftVerifyService namespace: 'pt01-pro', svcName: 'pt', verbose: 'false'</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">def getVersionFromPom(pom) &#123;</span><br><span class="line">  def matcher = readFile(pom) =~ '&lt;version&gt;(.+)&lt;/version&gt;'</span><br><span class="line">  matcher ? matcher[0][1] : null</span><br><span class="line">&#125;</span><br><span class="line">def getGroupIdFromPom(pom) &#123;</span><br><span class="line">  def matcher = readFile(pom) =~ '&lt;groupId&gt;(.+)&lt;/groupId&gt;'</span><br><span class="line">  matcher ? matcher[0][1] : null</span><br><span class="line">&#125;</span><br><span class="line">def getArtifactIdFromPom(pom) &#123;</span><br><span class="line">  def matcher = readFile(pom) =~ '&lt;artifactId&gt;(.+)&lt;/artifactId&gt;'</span><br><span class="line">  matcher ? matcher[0][1] : null</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+      <!-- 打赏 -->
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/01/07/%E7%BA%A2%E5%B8%BDpupbline%E8%84%9A%E6%9C%AC/" data-id="ck538akdu0003xo6bcirp4hl5"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E8%84%9A%E6%9C%AC/" rel="tag">脚本</a></li></ul>
+
     </footer>
 
   </div>
@@ -282,7 +348,7 @@
     </li>
     
     <li class="nav-item">
-      <a class="nav-item-link" href="/2020/about">关于我</a>
+      <a class="nav-item-link" href="/root/blog/source/_posts/about.md">关于我</a>
     </li>
     
   </ul>
