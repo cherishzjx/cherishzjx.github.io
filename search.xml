@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>about</title>
+    <title>About Me</title>
     <url>/2020/01/08/about/</url>
     <content><![CDATA[<blockquote>
 <p>A Data Analyst, live in ShangHai, China.</p>
@@ -11,6 +11,9 @@ QQ: xxx<br />
 微信: xxx</p>
 <a id="more"></a>
 ]]></content>
+      <tags>
+        <tag>个人</tag>
+      </tags>
   </entry>
   <entry>
     <title>ceph</title>
