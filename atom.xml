@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-01-07T02:05:01.551Z</updated>
+  <updated>2020-01-07T02:04:36.921Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,32 +15,6 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>about me</title>
-    <link href="http://yoursite.com/2020/01/07/about/"/>
-    <id>http://yoursite.com/2020/01/07/about/</id>
-    <published>2020-01-07T01:56:33.000Z</published>
-    <updated>2020-01-07T02:05:01.551Z</updated>
-    
-    <content type="html"><![CDATA[<p><strong>关于我</strong></p><p>打酱油数据分析师</p><pre class="highlight"><code class="bash">phone：123456</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;&lt;strong&gt;关于我&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;打酱油数据分析师&lt;/p&gt;
-&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;bash&quot;&gt;phone：123456
-&lt;/code&gt;&lt;/pre&gt;
-
-      
-    
-    </summary>
-    
-    
-    
-  </entry>
   
   <entry>
     <title>ceph</title>
@@ -91,6 +65,33 @@
     
     
       <category term="脚本" scheme="http://yoursite.com/tags/%E8%84%9A%E6%9C%AC/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>About Me</title>
+    <link href="http://yoursite.com/2019/12/02/about/"/>
+    <id>http://yoursite.com/2019/12/02/about/</id>
+    <published>2019-12-02T13:37:04.000Z</published>
+    <updated>2020-01-08T05:44:38.164Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>A Coder, live in Hangzhou, China.</p></blockquote><p>GitHub: <a href="https://github.com/Shen-Yu" target="_blank" rel="noopener">Shen-Yu</a><br />Twitter: <a href="https://twitter.com/shenyu1995" target="_blank" rel="noopener">shenyu1995</a><br />QQ: <a href="http://wpa.qq.com/msgrd?v=3&amp;uin=448766534&amp;site=qq&amp;menu=yes" target="_blank" rel="noopener">448766534</a><br />微信: yuknass</p><a id="more"></a><!-- ![avatar.jpg](https://i.loli.net/2019/12/02/Hw5WJIMKzi1YrU8.jpg) --><img src="https://i.loli.net/2019/12/28/ewSHTg3uWyJkaEv.jpg" alt="avatar" width="300" style="border-radius:50%"/>]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;A Coder, live in Hangzhou, China.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;GitHub: &lt;a href=&quot;https://github.com/Shen-Yu&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Shen-Yu&lt;/a&gt;&lt;br /&gt;
+Twitter: &lt;a href=&quot;https://twitter.com/shenyu1995&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;shenyu1995&lt;/a&gt;&lt;br /&gt;
+QQ: &lt;a href=&quot;http://wpa.qq.com/msgrd?v=3&amp;amp;uin=448766534&amp;amp;site=qq&amp;amp;menu=yes&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;448766534&lt;/a&gt;&lt;br /&gt;
+微信: yuknass&lt;/p&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="随笔" scheme="http://yoursite.com/tags/%E9%9A%8F%E7%AC%94/"/>
     
   </entry>
   
